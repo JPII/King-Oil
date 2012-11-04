@@ -18,7 +18,3 @@ KingOil is licensed under the irrevocable GNU General Public License v3.
 KingOil will be released with the following versioning scheme:
     
     major.minor.build
-
-
-## Commit updates
-Follow @NavalBattle for real-time commit logs.
