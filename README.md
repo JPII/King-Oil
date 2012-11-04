@@ -1,4 +1,4 @@
-NavalBattle
+King Oil
 ==========
 
 A new RoketGamer-powered game. Coming soon.
@@ -12,14 +12,13 @@ A new RoketGamer-powered game. Coming soon.
 * **Matthis5point0** - *TBD*
 
 ## License
-NavalBattle is licensed under the irrevocable GNU General Public License v3.
+KingOil is licensed under the irrevocable GNU General Public License v3.
 
 ## Versioning
-NavalBattle will be released with the following versioning scheme:
+KingOil will be released with the following versioning scheme:
     
     major.minor.build
 
-Names of United States Navy ships will be used for codenames.
 
 ## Commit updates
 Follow @NavalBattle for real-time commit logs.
