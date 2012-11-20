@@ -19,6 +19,8 @@ package com.jpii.KingOil.gui;
 
 import java.awt.event.*;
 
+import com.jpii.KingOil.game.Game;
+
 public class KeyboardListener implements KeyListener {
 	
 	Object window;
@@ -35,6 +37,15 @@ public class KeyboardListener implements KeyListener {
 			DebugWindow d = (DebugWindow) window;
 			if(k.getKeyCode() == KeyEvent.VK_ENTER) {
 				d.submitCommandRemote();
+			}
+		}
+		if(window instanceof Game) {
+			Game d = (Game) window;
+			if(k.getKeyCode() == KeyEvent.VK_HOME) {
+				d.reset();
+			}
+			if(k.getKeyCode() == KeyEvent.VK_F) {
+				d.finishPoints();
 			}
 		}
 	}

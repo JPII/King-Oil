@@ -21,6 +21,8 @@ public class Game extends Window {
 	Graphics g;
 	int boardx,boardy;
 	
+	Polygon p;
+	
 	boolean pressed = false;
 	
 	private void init(){
@@ -40,23 +42,32 @@ public class Game extends Window {
 		BufferedImage img = new BufferedImage(width+16, height+38, BufferedImage.TYPE_INT_ARGB);
 		buffer = img;
 		g = buffer.getGraphics();
+		KingOil.getDebugWindow().println("Game initilized");
 	}
 	
 	public void paint(Graphics paint){
 		g.setColor(Color.black);
 		g.fillRect(0,0,780,750);
-		
-		
-		
 		g.drawImage(gameboard, 0+boardx,0+boardy,this);
+		
+		
+		g.setColor(Color.red);
+		g.fillPolygon(p);
+		
+		
 		paint.drawImage(buffer,0,8,this);
 	}
 	
 	/////  Mouse Events  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private void mousePressed2(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY()-8;
 		if (e.getClickCount() == 2)
-			centerScreen(e.getX(),e.getY());
+			centerScreen(x,y);
+		if (e.getButton() == 3)
+			addPoint(x,y);
+		repaint();
     }
 
 	private void mouseDrag(MouseEvent e) {
@@ -72,12 +83,38 @@ public class Game extends Window {
 	/////  Other methods  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void initializePoints(){
-    	
+    	p = new Polygon();
+    }
+    
+    private void addPoint(int x, int y){
+    	p.addPoint(x, y);
+    }
+    
+    public void finishPoints(){
+    	KingOil.getDebugWindow().printError(displayArray(p.xpoints));
+    	KingOil.getDebugWindow().printError(displayArray(p.ypoints));
+    	p = new Polygon();
+    	repaint();
+    }
+    
+    private String displayArray(int[] array){
+    	String temp = "{";
+    	for(int index = 0; index<array.length; index++){
+    		temp+= array[index]+", ";
+    	}
+    	temp = temp.substring(0,temp.length()-2);
+    	temp+="}";
+    	return temp;
     }
     
     private void centerScreen(int x, int y){
     	boardx-=(x-width/2);
     	boardy-=((y-height/2)-8);
+    }
+    
+    public void reset(){
+    	boardx = 0;
+    	boardy = 0;
     	repaint();
     }
 }
