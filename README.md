@@ -3,7 +3,7 @@ King Oil
 
 A new RoketGamer-powered game. Coming soon.
 
-![King-Oil](https://dl.dropbox.com/u/44332357/King-Oil.JPG "King-Oil")
+![King-Oil](https://dl.dropbox.com/u/44332357/King-Oil.png "King-Oil")
 
 ## Members
 * **TexasGamer** - SCM manager, RoketGamer lead
