@@ -1,5 +1,7 @@
 package com.jpii.KingOil.gui;
 
+import java.awt.Toolkit;
+
 import javax.swing.*;
 
 import com.jpii.KingOil.*;
@@ -31,8 +33,8 @@ public class Window extends JFrame {
 	public Window(int x, int y) {
 		width = x;
 		height = y;
-		xloc = 1280/2-width/2;
-		yloc = 800/2-height/2;
+		xloc = Toolkit.getDefaultToolkit().getScreenSize().width /2 - width / 2;
+		yloc = Toolkit.getDefaultToolkit().getScreenSize().height /2 -height / 2;		
 	}
 	
 	public Window(int x, int y,int xloc,int yloc) {
