@@ -6,7 +6,6 @@ import com.jpii.KingOil.gui.*;
 public class Game extends Window {
 	public Game() {
 		super(800,800);
-		
 		setDefaults();
 	}
 	
