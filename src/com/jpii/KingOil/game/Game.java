@@ -19,15 +19,18 @@ public class Game extends Window {
 	BufferedImage gameboard;
 	Image buffer;
 	Graphics g;
-	public double centerx, centery,step;
-	public double scale,originalFactor;
+	public double centerx, centery,step,scale,originalFactor;
+	
+	PieceManager pieces;
 	
 	private void init(){
 		step = 50;
-		scale = 1.1;
+		scale = 1.0;
 		centerx = width/2;
 		centery = height/2;
 		originalFactor = scale;
+		
+		pieces = new PieceManager(width,height,scale);
 		
 		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		buffer = img;
@@ -52,6 +55,7 @@ public class Game extends Window {
 		g.fillRect(0,0,780,750);
 		drawBoard();
 		
+		pieces.drawPlots(g);
 		
 		paint.drawImage(buffer,0,0,this);
 		paint.setColor(Color.red);
@@ -94,5 +98,10 @@ public class Game extends Window {
     	centerx = width/2;
     	centery = height/2;
     	scale = originalFactor;
+    	pieces = new PieceManager(width,height,scale);
+    }
+    
+    public void scaling(){
+    	pieces.updatePlots(scale);
     }
 }

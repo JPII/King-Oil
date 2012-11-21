@@ -61,11 +61,13 @@ public class KeyboardListener implements KeyListener {
 			if (key == KeyEvent.VK_PAGE_DOWN) { 
 				if(d.scale-.5>=0.2){
 					d.scale-=.2;
+					d.scaling();
 				}
 			}
 			if (key == KeyEvent.VK_PAGE_UP) { 
 				if(d.scale+.5<=3.0){
 					d.scale+=.2;
+					d.scaling();
 				}
 			}
 			d.repaint();
