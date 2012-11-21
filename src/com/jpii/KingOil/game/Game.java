@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 @SuppressWarnings("serial")
 public class Game extends Window {
 	public Game() {
-		super(780,750,( Toolkit.getDefaultToolkit().getScreenSize().width /2 - 780 / 2),8);
+		super(780,750);
 		init();
 		setDefaults();
 	}
@@ -19,18 +19,13 @@ public class Game extends Window {
 	BufferedImage gameboard;
 	Image buffer;
 	Graphics g;
-	public double displayx,displayy,step;
-	public double factor,originalFactor;
+	int boardx,boardy;
+	
+	Polygon p;
+	
 	boolean pressed = false;
-	boolean first = true;
 	
 	private void init(){
-		step = 50;
-		factor = 1.0;
-		displayx=width/2;
-		displayy=height/2;
-		originalFactor = factor;
-		
 		try{
 			gameboard = ImageIO.read(Game.class.getResource("/com/jpii/KingOil/res/GameBoard.png"));
 		}catch(Exception e) {e.printStackTrace();}
@@ -42,33 +37,36 @@ public class Game extends Window {
 		public void mouseMoved(MouseEvent md){mouseM(md);}};
 		this.addMouseMotionListener(mouse1);
 		
+		initializePoints();
+		
 		BufferedImage img = new BufferedImage(width+16, height+38, BufferedImage.TYPE_INT_ARGB);
 		buffer = img;
 		g = buffer.getGraphics();
-		
 		KingOil.getDebugWindow().println("Game initilized");
 	}
 	
 	public void paint(Graphics paint){
-		g.setColor(randomColor());
+		g.setColor(Color.black);
 		g.fillRect(0,0,780,750);
-		
-		KingOil.getDebugWindow().println("display: "+(displayx - width/2/factor));
-		g.drawImage(gameboard, 0, 0, 780, 750,(int)(displayx - width/2/factor),(int)(displayy - height/2/factor),(int)((displayx-width/2/factor)+(width/factor)),(int)((displayy-height/2/factor)+(height/factor)),null);
-		paint.drawImage(buffer,0,0,this);
+		g.drawImage(gameboard, 0+boardx,0+boardy,this);
 		
 		
-		paint.setColor(Color.red);
-		paint.fillRect(width/2, height/2, 1, 1);
+		g.setColor(Color.red);
+		g.fillPolygon(p);
+		
+		
+		paint.drawImage(buffer,0,8,this);
 	}
 	
 	/////  Mouse Events  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private void mousePressed2(MouseEvent e) {
 		int x = e.getX();
-		int y = e.getY();
+		int y = e.getY()-8;
 		if (e.getClickCount() == 2)
 			centerScreen(x,y);
+		if (e.getButton() == 3)
+			addPoint(x,y);
 		repaint();
     }
 
@@ -83,20 +81,40 @@ public class Game extends Window {
 	}
     
 	/////  Other methods  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void initializePoints(){
+    	p = new Polygon();
+    }
     
-    private Color randomColor(){
-    	return new Color((int)(Math.random()*100),(int)(Math.random()*100),(int)(Math.random()*100));
+    private void addPoint(int x, int y){
+    	p.addPoint(x, y);
+    }
+    
+    public void finishPoints(){
+    	KingOil.getDebugWindow().printError(displayArray(p.xpoints));
+    	KingOil.getDebugWindow().printError(displayArray(p.ypoints));
+    	p = new Polygon();
+    	repaint();
+    }
+    
+    private String displayArray(int[] array){
+    	String temp = "{";
+    	for(int index = 0; index<array.length; index++){
+    		temp+= array[index]+", ";
+    	}
+    	temp = temp.substring(0,temp.length()-2);
+    	temp+="}";
+    	return temp;
     }
     
     private void centerScreen(int x, int y){
-    	KingOil.getDebugWindow().println("Mouse "+x+" "+y);
-    	displayx= (x-(displayx-(width/2)))/factor;
-    	//displayy= (displayy-y);
+    	boardx-=(x-width/2);
+    	boardy-=((y-height/2)-8);
     }
     
     public void reset(){
-    	displayx = width/2;
-    	displayy = height/2;
-    	factor = originalFactor;
+    	boardx = 0;
+    	boardy = 0;
+    	repaint();
     }
 }
