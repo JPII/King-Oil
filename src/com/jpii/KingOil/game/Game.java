@@ -19,17 +19,19 @@ public class Game extends Window {
 	BufferedImage gameboard;
 	Image buffer;
 	Graphics g;
-	public double displayx,displayy,step;
-	public double factor,originalFactor;
-	boolean pressed = false;
-	boolean first = true;
+	public double centerx, centery,step;
+	public double scale,originalFactor;
 	
 	private void init(){
 		step = 50;
-		factor = 1.0;
-		displayx=width/2;
-		displayy=height/2;
-		originalFactor = factor;
+		scale = 1.1;
+		centerx = width/2;
+		centery = height/2;
+		originalFactor = scale;
+		
+		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		buffer = img;
+		g = buffer.getGraphics();
 		
 		try{
 			gameboard = ImageIO.read(Game.class.getResource("/com/jpii/KingOil/res/GameBoard.png"));
@@ -42,22 +44,16 @@ public class Game extends Window {
 		public void mouseMoved(MouseEvent md){mouseM(md);}};
 		this.addMouseMotionListener(mouse1);
 		
-		BufferedImage img = new BufferedImage(width+16, height+38, BufferedImage.TYPE_INT_ARGB);
-		buffer = img;
-		g = buffer.getGraphics();
-		
 		KingOil.getDebugWindow().println("Game initilized");
 	}
 	
 	public void paint(Graphics paint){
-		g.setColor(randomColor());
+		g.setColor(Color.black);
 		g.fillRect(0,0,780,750);
+		drawBoard();
 		
-		KingOil.getDebugWindow().println("display: "+(displayx - width/2/factor));
-		g.drawImage(gameboard, 0, 0, 780, 750,(int)(displayx - width/2/factor),(int)(displayy - height/2/factor),(int)((displayx-width/2/factor)+(width/factor)),(int)((displayy-height/2/factor)+(height/factor)),null);
+		
 		paint.drawImage(buffer,0,0,this);
-		
-		
 		paint.setColor(Color.red);
 		paint.fillRect(width/2, height/2, 1, 1);
 	}
@@ -83,20 +79,20 @@ public class Game extends Window {
 	}
     
 	/////  Other methods  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    private Color randomColor(){
-    	return new Color((int)(Math.random()*100),(int)(Math.random()*100),(int)(Math.random()*100));
+    private void drawBoard(){
+    	double imgwidth = width/scale;
+    	double imgheight = height/scale;
+    	g.drawImage(gameboard, 0, 0, width, height,(int)(centerx-imgwidth/2),(int)(centery-imgheight/2),(int)(centerx+imgwidth/2),(int)(centery+imgheight/2), null);
     }
     
     private void centerScreen(int x, int y){
-    	KingOil.getDebugWindow().println("Mouse "+x+" "+y);
-    	displayx= (x-(displayx-(width/2)))/factor;
-    	//displayy= (displayy-y);
+    	centerx += (x-width/2)/scale;
+    	centery += (y-height/2)/scale;
     }
     
     public void reset(){
-    	displayx = width/2;
-    	displayy = height/2;
-    	factor = originalFactor;
+    	centerx = width/2;
+    	centery = height/2;
+    	scale = originalFactor;
     }
 }

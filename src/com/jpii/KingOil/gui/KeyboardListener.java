@@ -47,25 +47,25 @@ public class KeyboardListener implements KeyListener {
 				d.reset();
 			}
 			if (key == KeyEvent.VK_UP) {  
-				d.displayy-=d.step; 	
+				d.centery+=d.step; 	
 			}
 			if (key == KeyEvent.VK_DOWN) {  
-				d.displayy+=d.step; 	
+				d.centery-=d.step; 	
 			}
 			if (key == KeyEvent.VK_LEFT) { 
-				d.displayx-=d.step; 	
+				d.centerx+=d.step; 	
 			}
 			if (key == KeyEvent.VK_RIGHT) {
-				d.displayx+=d.step; 	
+				d.centerx-=d.step; 	
 			}
 			if (key == KeyEvent.VK_PAGE_DOWN) { 
-				if(d.factor-.5>=0.5){
-					d.factor-=.2;
+				if(d.scale-.5>=0.2){
+					d.scale-=.2;
 				}
 			}
 			if (key == KeyEvent.VK_PAGE_UP) { 
-				if(d.factor+.5<=2.5){
-					d.factor+=.2;
+				if(d.scale+.5<=3.0){
+					d.scale+=.2;
 				}
 			}
 			d.repaint();
