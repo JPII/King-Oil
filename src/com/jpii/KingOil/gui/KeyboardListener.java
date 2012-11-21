@@ -22,13 +22,14 @@ import java.awt.event.*;
 import com.jpii.KingOil.game.Game;
 
 public class KeyboardListener implements KeyListener {
-	
+
 	Object window;
-	
+
 	public KeyboardListener(Object classname) {
 		window = classname;
 	}
-	
+
+	@Override
 	public void keyPressed(KeyEvent k) {	
 		if(k.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			WindowCloser.close();
@@ -41,22 +42,43 @@ public class KeyboardListener implements KeyListener {
 		}
 		if(window instanceof Game) {
 			Game d = (Game) window;
-			if(k.getKeyCode() == KeyEvent.VK_HOME) {
+			int key = k.getKeyCode();
+			if(key == KeyEvent.VK_HOME) {
 				d.reset();
 			}
-			if(k.getKeyCode() == KeyEvent.VK_F) {
-				d.finishPoints();
+			if (key == KeyEvent.VK_UP) {  
+				d.displayy-=d.step; 	
 			}
+			if (key == KeyEvent.VK_DOWN) {  
+				d.displayy+=d.step; 	
+			}
+			if (key == KeyEvent.VK_LEFT) { 
+				d.displayx-=d.step; 	
+			}
+			if (key == KeyEvent.VK_RIGHT) {
+				d.displayx+=d.step; 	
+			}
+			if (key == KeyEvent.VK_PAGE_DOWN) { 
+				if(d.factor-.5>=0.5){
+					d.factor-=.2;
+				}
+			}
+			if (key == KeyEvent.VK_PAGE_UP) { 
+				if(d.factor+.5<=2.5){
+					d.factor+=.2;
+				}
+			}
+			d.repaint();
 		}
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+
 	}
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
 }
