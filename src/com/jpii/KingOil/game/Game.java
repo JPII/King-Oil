@@ -20,6 +20,7 @@ public class Game extends Window {
 	Image buffer;
 	Graphics g;
 	public double centerx, centery,step,scale,originalFactor;
+	public int mousex, mousey;
 	
 	PieceManager pieces;
 	
@@ -43,7 +44,7 @@ public class Game extends Window {
 		MouseListener mouse = new MouseAdapter() {public void mousePressed(MouseEvent e){mousePressed2(e);}
 		public void mouseReleased(MouseEvent e){mouseReleased2(e);}};
 		this.addMouseListener(mouse);
-		MouseMotionListener mouse1 = new MouseAdapter() {public void mouseDragged(MouseEvent md){mouseDrag(md);}
+		MouseMotionListener mouse1 = new MouseAdapter() {public void mouseDragged(MouseEvent md){mouseM(md);}
 		public void mouseMoved(MouseEvent md){mouseM(md);}};
 		this.addMouseMotionListener(mouse1);
 		
@@ -65,18 +66,17 @@ public class Game extends Window {
 	/////  Mouse Events  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private void mousePressed2(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
+		mousex = e.getX();
+		mousey = e.getY();
 		if (e.getClickCount() == 2)
-			centerScreen(x,y);
+			centerScreen(mousex,mousey);
 		repaint();
     }
 
-	private void mouseDrag(MouseEvent e) {
-    }
-
     private void mouseM(MouseEvent e) {
-    	pieces.passMouse(e.getX(),e.getY());
+    	mousex = e.getX();
+		mousey = e.getY();
+    	pieces.passMouse(mousex,mousey);
     	repaint();
     }
 
