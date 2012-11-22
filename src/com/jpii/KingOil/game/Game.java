@@ -76,7 +76,8 @@ public class Game extends Window {
     }
 
     private void mouseM(MouseEvent e) {
-    	
+    	pieces.passMouse(e.getX(),e.getY());
+    	repaint();
     }
 
     private void mouseReleased2(MouseEvent e) {

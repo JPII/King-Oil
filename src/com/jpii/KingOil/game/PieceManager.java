@@ -93,4 +93,10 @@ public class PieceManager {
 			plots.get(index).addY(y);
 		}
 	}
+	
+	public void passMouse(int x, int y){
+		for(int index = 0; index<plots.size();index++){
+			plots.get(index).passMouse(x,y);
+		}
+	}
 }

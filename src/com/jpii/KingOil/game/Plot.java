@@ -6,19 +6,20 @@ public class Plot {
 	
 	Polygon plot;
 	Polygon orig;
-	
-	public Plot(){
-		
-	}
+	boolean inside;
 	
 	public Plot(int[] xarray,int[] yarray){
 		orig=new Polygon(xarray,yarray,xarray.length);
 		plot = orig;
+		inside = false;
 	}
 	
 	public void drawPlot(Graphics g){
 		g.setColor(Color.blue);
-		g.drawPolygon(plot);
+		if(!inside)
+			g.drawPolygon(plot);
+		else
+			g.fillPolygon(plot);
 	}
 	
 	public void updatePlot(double scale){
@@ -44,5 +45,12 @@ public class Plot {
 			orig.ypoints[index] += y; 
 			plot.ypoints[index] += y;
 		}
+	}
+	
+	public void passMouse(int x, int y){
+		if(plot.contains(new Point(x,y)))
+			inside = true;
+		else
+			inside = false;
 	}
 }
