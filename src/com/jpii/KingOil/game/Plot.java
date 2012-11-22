@@ -1,6 +1,7 @@
 package com.jpii.KingOil.game;
 
 import java.awt.*;
+import java.util.*;
 
 public class Plot {
 	
@@ -8,10 +9,27 @@ public class Plot {
 	Polygon orig;
 	boolean inside;
 	
+	ArrayList<Hole> holes;
+	
 	public Plot(int[] xarray,int[] yarray){
 		orig=new Polygon(xarray,yarray,xarray.length);
 		plot = orig;
 		inside = false;
+		holes = new ArrayList<Hole>();
+	}
+	
+	public Plot(int[] xarray,int[] yarray,int[] capx, int[] capy){
+		orig=new Polygon(xarray,yarray,xarray.length);
+		plot = orig;
+		inside = false;
+		holes = new ArrayList<Hole>();
+		initilizeHoles(capx, capy);
+	}
+	
+	private void initilizeHoles(int[] capx, int[] capy){
+		for(int index = 0; index<capx.length; index++){
+			holes.add(new Hole(capx[index],capy[index]));
+		}
 	}
 	
 	public void drawPlot(Graphics g){
@@ -20,6 +38,9 @@ public class Plot {
 			g.drawPolygon(plot);
 		else
 			g.fillPolygon(plot);
+		for (int index = 0; index<holes.size(); index++){
+			holes.get(index).drawHole(g);
+		}
 	}
 	
 	public void updatePlot(double scale){

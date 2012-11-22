@@ -17,8 +17,10 @@
 
 package com.jpii.KingOil.gui;
 
+import java.awt.Polygon;
 import java.awt.event.*;
 
+import com.jpii.KingOil.KingOil;
 import com.jpii.KingOil.game.Game;
 
 public class KeyboardListener implements KeyListener {
@@ -74,10 +76,27 @@ public class KeyboardListener implements KeyListener {
 					d.scaling();
 				}
 			}
+			if (key == KeyEvent.VK_F) { 
+					   	KingOil.getDebugWindow().printError(displayArray(d.p.xpoints));
+				    	KingOil.getDebugWindow().printError(displayArray(d.p.ypoints));
+				    	d.p = new Polygon();
+					   	d.repaint();
+			}
 			d.repaint();
 		}
 	}
+	
+	    private String displayArray(int[] array){
+		    	String temp = "{";
+		    	for(int index = 0; index<array.length; index++){
+		    		temp+= array[index]+", ";
+		    	}
+		    	temp = temp.substring(0,temp.length()-2);
+		    	temp+="}";
+		    	return temp;
+		     }
 
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 

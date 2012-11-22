@@ -24,9 +24,11 @@ public class Game extends Window {
 	
 	PieceManager pieces;
 	
+	public Polygon p = new Polygon();
+	
 	private void init(){
 		step = 25;
-		scale = 1.1;
+		scale = 1.0;
 		centerx = width/2;
 		centery = height/2;
 		originalFactor = scale;
@@ -70,13 +72,17 @@ public class Game extends Window {
 		mousey = e.getY();
 		if (e.getClickCount() == 2)
 			centerScreen(mousex,mousey);
+		
+		if(e.getButton()==3){
+			p.addPoint(mousex, mousey);
+		}
 		repaint();
     }
 
     private void mouseM(MouseEvent e) {
     	mousex = e.getX();
 		mousey = e.getY();
-    	pieces.passMouse(mousex,mousey);
+    	//pieces.passMouse(mousex,mousey);
     	repaint();
     }
 

@@ -54,11 +54,11 @@ public class DebugWindow extends Window {
 		
 		lblNavalBattle.setFont(new Font("Tahoma", Font.BOLD, 14));
 		debugPrinter.setFont(new Font("Consolas",0,12));
-		debugPrinter.setEditable(false);
+		debugPrinter.setEditable(true);
 		scrollPane.setViewportView(debugPrinter);
 		commandField.setColumns(10);
 		btnSubmit.setFocusable(false);
-		debugPrinter.setFocusable(false);
+		debugPrinter.setFocusable(true);
 		
 		getContentPane().add(lblNavalBattle);
 		getContentPane().add(lblDebugMode);
