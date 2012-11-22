@@ -48,15 +48,19 @@ public class KeyboardListener implements KeyListener {
 			}
 			if (key == KeyEvent.VK_UP) {  
 				d.centery+=d.step; 	
+				d.addY(-1*d.step);
 			}
 			if (key == KeyEvent.VK_DOWN) {  
-				d.centery-=d.step; 	
+				d.centery-=d.step;
+				d.addY(d.step);
 			}
 			if (key == KeyEvent.VK_LEFT) { 
-				d.centerx+=d.step; 	
+				d.centerx+=d.step;
+				d.addX(-1*d.step);
 			}
 			if (key == KeyEvent.VK_RIGHT) {
-				d.centerx-=d.step; 	
+				d.centerx-=d.step;
+				d.addX(d.step);
 			}
 			if (key == KeyEvent.VK_PAGE_DOWN) { 
 				if(d.scale-.5>=0.2){

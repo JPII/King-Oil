@@ -24,8 +24,8 @@ public class Game extends Window {
 	PieceManager pieces;
 	
 	private void init(){
-		step = 50;
-		scale = 1.0;
+		step = 25;
+		scale = 1.1;
 		centerx = width/2;
 		centery = height/2;
 		originalFactor = scale;
@@ -90,8 +90,29 @@ public class Game extends Window {
     }
     
     private void centerScreen(int x, int y){
-    	centerx += (x-width/2)/scale;
-    	centery += (y-height/2)/scale;
+    	double xchange = (x-width/2)/scale;
+    	double ychange = (y-height/2)/scale;
+    	centerx += xchange;
+    	centery += ychange;
+    	addX(-1*xchange);
+    	addY(-1*ychange);
+    }
+    
+    public void addX(int x){
+    	pieces.addX((int)x);
+    	scaling();
+    }
+    public void addX(double x){
+    	pieces.addX((int)x);
+    	scaling();
+    }
+    public void addY(int y){
+    	pieces.addY((int)y);
+    	scaling();
+    }
+    public void addY(double y){
+    	pieces.addY((int)y);
+    	scaling();
     }
     
     public void reset(){
