@@ -7,7 +7,7 @@ public class PieceManager {
 	
 	private ArrayList<Plot> plots;
 	
-	public PieceManager(int x,int y,double scale){
+	public PieceManager(double scale){
 		plots = new ArrayList<Plot>();
 		initializePlots();
 		updatePlots(scale);
@@ -16,12 +16,14 @@ public class PieceManager {
 	private void initializePlots(){
 		int[] x = {174, 244, 193, 60, 60, 55, 65, 67, 63, 69, 86, 105, 129};
 		int[] y = {84, 174, 336, 321, 307, 285, 253, 236, 192, 140, 102, 83, 80};
-		int[]capx = {171, 143, 167, 211, 192, 122, 147, 103, 195, 159, 186, 119};
-		int[]capy = {164, 195, 213, 206, 230, 229, 245, 266, 274, 288, 300, 311};
+		int[]capx = {171, 145, 168, 212, 191, 122, 147, 103, 197, 158, 186, 119};
+		int[]capy = {166, 197, 214, 207, 231, 230, 245, 267, 274, 289, 300, 313};
 		plots.add(new Plot(x,y,capx,capy));
 		int[] x1 ={174, 245, 335, 344, 328, 338, 299, 275, 246};
 		int[] y1 ={84, 172, 171, 147, 87, 41, 47, 50, 74};
-		plots.add(new Plot(x1,y1));
+		int[]capx1 = {272, 310, 317, 325, 295, 282, 250, 235};
+		int[]capy1 = {98, 85, 113, 141, 152, 124, 141, 116};
+		plots.add(new Plot(x1,y1,capx1,capy1));
 		int[] x2 = {339, 330, 345, 403, 444, 442, 453, 453, 418, 365};
 		int[] y2 = {41, 82, 144, 145, 151, 107, 75, 46, 34, 37};
 		plots.add(new Plot(x2,y2));
@@ -84,19 +86,19 @@ public class PieceManager {
 		}
 	}
 	
-	public void addX(int x){
+	public void addX(double x){
 		for(int index = 0; index<plots.size();index++){
 			plots.get(index).addX(x);
 		}
 	}
 	
-	public void addY(int y){
+	public void addY(double y){
 		for(int index = 0; index<plots.size();index++){
 			plots.get(index).addY(y);
 		}
 	}
 	
-	public void passMouse(int x, int y){
+	public void passMouse(double x, double y){
 		for(int index = 0; index<plots.size();index++){
 			plots.get(index).passMouse(x,y);
 		}

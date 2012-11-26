@@ -5,25 +5,30 @@ import java.util.*;
 
 public class Plot {
 	
-	Polygon plot;
-	Polygon orig;
-	boolean inside;
-	
 	ArrayList<Hole> holes;
+	double[] origx;
+	double[] origy;
+	
+	Polygon plot;
 	
 	public Plot(int[] xarray,int[] yarray){
-		orig=new Polygon(xarray,yarray,xarray.length);
-		plot = orig;
-		inside = false;
+		initilizePlot(xarray,yarray);
 		holes = new ArrayList<Hole>();
 	}
 	
 	public Plot(int[] xarray,int[] yarray,int[] capx, int[] capy){
-		orig=new Polygon(xarray,yarray,xarray.length);
-		plot = orig;
-		inside = false;
+		initilizePlot(xarray,yarray);
 		holes = new ArrayList<Hole>();
 		initilizeHoles(capx, capy);
+	}
+	
+	private void initilizePlot(int[] xarray,int[] yarray){
+		origx = new double[xarray.length];
+		origy = new double[yarray.length];
+		for(int index=0; index<xarray.length; index++){
+			origx[index] = xarray[index];
+			origy[index] = yarray[index];
+		}
 	}
 	
 	private void initilizeHoles(int[] capx, int[] capy){
@@ -34,10 +39,7 @@ public class Plot {
 	
 	public void drawPlot(Graphics g){
 		g.setColor(Color.blue);
-		if(!inside)
-			g.drawPolygon(plot);
-		else
-			g.fillPolygon(plot);
+		g.drawPolygon(plot);
 		for (int index = 0; index<holes.size(); index++){
 			holes.get(index).drawHole(g);
 		}
@@ -46,32 +48,50 @@ public class Plot {
 	public void updatePlot(double scale){
 		double imgwidth = 780/2*(scale-(1));
 		double imgheight = 750/2*(scale-(1));
-		int[] finx = new int[orig.xpoints.length];
-		int[] finy = new int[orig.xpoints.length];
-		for(int index=0; index<orig.xpoints.length; index++){
-			finx[index] = (int) ((orig.xpoints[index]*scale)-imgwidth);
-			finy[index] = (int) ((orig.ypoints[index]*scale)-imgheight);
+		double[] finx = new double[origx.length];
+		double[] finy = new double[origy.length];
+		for(int index=0; index<origx.length; index++){
+			finx[index] = ((origx[index]*scale)-imgwidth);
+			finy[index] = ((origy[index]*scale)-imgheight);
 		}
-		plot = new Polygon(finx,finy,finx.length);
-	}
-	
-	public void addX(int x){
-		for(int index=0; index<orig.xpoints.length; index++){
-			orig.xpoints[index] += x; 
-			plot.xpoints[index] += x;
-		}
-	}
-	public void addY(int y){
-		for(int index=0; index<orig.xpoints.length; index++){
-			orig.ypoints[index] += y; 
-			plot.ypoints[index] += y;
+		plot = getPolygon(finx,finy);
+		for(int index=0; index<holes.size(); index++){
+			holes.get(index).updatePlot(scale,imgwidth,imgheight);
 		}
 	}
 	
-	public void passMouse(int x, int y){
-		if(plot.contains(new Point(x,y)))
-			inside = true;
-		else
-			inside = false;
+	private Polygon getPolygon(double[] xs,double[] ys){
+		Polygon temp = new Polygon();
+		for(int index=0;index<xs.length;index++){
+			temp.addPoint((int)(xs[index]),(int)(ys[index]));
+		}
+		return temp;
+	}
+	
+	public void addX(double x){
+		for(int index=0; index<origx.length; index++){
+			origx[index] += x; 
+		}
+		
+		for(int index=0; index<holes.size();index++){
+			holes.get(index).x+=x;
+		}
+	}
+	public void addY(double y){
+		for(int index=0; index<origy.length; index++){
+			origy[index] += y; 
+		}
+		
+		for(int index=0; index<holes.size();index++){
+			holes.get(index).y+=y;
+		}
+	}
+	
+	public void passMouse(double x, double y){
+		if(plot.contains(new Point((int)x,(int)y))){
+		}
+		for(int index=0;index<holes.size();index++){
+			holes.get(index).passMouse(x,y);
+		}
 	}
 }

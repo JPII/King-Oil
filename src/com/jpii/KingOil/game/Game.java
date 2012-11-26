@@ -28,12 +28,12 @@ public class Game extends Window {
 	
 	private void init(){
 		step = 25;
-		scale = 1.0;
+		scale = 1.1;
 		centerx = width/2;
 		centery = height/2;
 		originalFactor = scale;
 		
-		pieces = new PieceManager(width,height,scale);
+		pieces = new PieceManager(scale);
 		
 		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		buffer = img;
@@ -82,7 +82,7 @@ public class Game extends Window {
     private void mouseM(MouseEvent e) {
     	mousex = e.getX();
 		mousey = e.getY();
-    	//pieces.passMouse(mousex,mousey);
+    	pieces.passMouse(mousex,mousey);
     	repaint();
     }
 
@@ -96,7 +96,7 @@ public class Game extends Window {
     	g.drawImage(gameboard, 0, 0, width, height,(int)(centerx-imgwidth/2),(int)(centery-imgheight/2),(int)(centerx+imgwidth/2),(int)(centery+imgheight/2), null);
     }
     
-    private void centerScreen(int x, int y){
+    private void centerScreen(double x, double y){
     	double xchange = (x-width/2)/scale;
     	double ychange = (y-height/2)/scale;
     	centerx += xchange;
@@ -104,29 +104,22 @@ public class Game extends Window {
     	addX(-1*xchange);
     	addY(-1*ychange);
     }
-    
-    public void addX(int x){
-    	pieces.addX((int)x);
-    	scaling();
-    }
     public void addX(double x){
-    	pieces.addX((int)x);
-    	scaling();
-    }
-    public void addY(int y){
-    	pieces.addY((int)y);
+    	pieces.addX(x);
     	scaling();
     }
     public void addY(double y){
-    	pieces.addY((int)y);
+    	pieces.addY(y);
     	scaling();
     }
     
     public void reset(){
+    	addX(centerx-width/2);
+    	addY(centery-height/2);
     	centerx = width/2;
     	centery = height/2;
     	scale = originalFactor;
-    	pieces = new PieceManager(width,height,scale);
+    	scaling();
     }
     
     public void scaling(){
