@@ -28,7 +28,7 @@ public class Game extends Window {
 	
 	private void init(){
 		step = 25;
-		scale = 1.1;
+		scale = 1.0;
 		centerx = width/2;
 		centery = height/2;
 		originalFactor = scale;
