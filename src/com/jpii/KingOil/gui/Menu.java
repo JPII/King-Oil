@@ -1,11 +1,13 @@
 package com.jpii.KingOil.gui;
 import javax.swing.*;
 import com.jpii.KingOil.data.Constants;
+import com.jpii.gamekit.gui.BaseWindow;
+
 import java.awt.*;
 import java.awt.event.*;
 
 @SuppressWarnings("serial")
-public class Menu extends Window {
+public class Menu extends BaseWindow {
 	public Menu() {
 		super();
 		

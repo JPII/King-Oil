@@ -143,10 +143,10 @@ public class Commands {
 	    	public void onRun(Command c, String[] args) {
 	    		args[0] = args[0].toLowerCase();
 	    		if(args[0].equals("main") || args[0].equals("menu") || args[0].equals("0") || args[0].equals("mainmenu") || args[0].equals("mainmenuwindow")) {
-	    			KingOil.getWindowHandler().add(new Menu());
+	    			new Menu();
 	    		}
 	    		if(args[0].equals("game") || args[0].equals("1") || args[0].equals("gamewindow")) {
-	    			KingOil.getWindowHandler().add(new Game());
+	    			new Game();
 	    		}
 	    	}}
 	    ));

@@ -23,6 +23,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import com.jpii.KingOil.gui.*;
 import com.jpii.KingOil.data.*;
+import com.jpii.gamekit.gui.WindowHandler;
 
 public class KingOil {
 	
@@ -38,7 +39,7 @@ public class KingOil {
 		gameState = new GameState();
 		commandHandler = new CommandHandler(Commands.COMMANDS);	
 		debugWindow.printInfo("King Oil " + Constants.KING_OIL_VERSION + " initialized");
-		windowHandler = new WindowHandler();
+		windowHandler = new WindowHandler(492,340);
 	}
 	
 	/**

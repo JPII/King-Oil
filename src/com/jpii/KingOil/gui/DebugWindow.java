@@ -23,9 +23,10 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import com.jpii.KingOil.KingOil;
+import com.jpii.gamekit.gui.BaseWindow;
 
 @SuppressWarnings("serial")
-public class DebugWindow extends Window {
+public class DebugWindow extends BaseWindow {
 	private JLabel lblNavalBattle;
 	private JLabel lblDebugMode;
 	private JTextPane debugPrinter;

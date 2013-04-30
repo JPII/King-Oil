@@ -1,7 +1,7 @@
 package com.jpii.KingOil.game;
 
 import com.jpii.KingOil.KingOil;
-import com.jpii.KingOil.gui.Window;
+import com.jpii.gamekit.gui.BaseWindow;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -9,7 +9,7 @@ import java.awt.event.*;
 import javax.imageio.ImageIO;
 
 @SuppressWarnings("serial")
-public class Game extends Window {
+public class Game extends BaseWindow {
 	public Game() {
 		super(780,750,( Toolkit.getDefaultToolkit().getScreenSize().width /2 - 780 / 2),8);
 		init();

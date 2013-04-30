@@ -1,17 +1,14 @@
 King Oil
 ==========
 
-A new RoketGamer-powered game. Coming soon.
+A digital copy of a board game.
 
 ![King-Oil](https://dl.dropbox.com/u/44332357/King-Oil.png "King-Oil")
 
 ## Members
 * **TexasGamer** - SCM manager, RoketGamer lead
 * **abauer** - game design lead
-* **DarkWarHero** - *TBD*
 * **maximusvladimir** - rendering lead
-* **smeagle42** - game-play lead
-* **Matthis5point0** - *TBD*
 
 ## License
 KingOil is licensed under the irrevocable GNU General Public License v3.
